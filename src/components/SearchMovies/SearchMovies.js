@@ -1,14 +1,23 @@
 import { Formik } from 'formik';
-import { BtnLabel, FormBtn } from './SaerchMovies.styled';
-import { Form, Field } from './SaerchMovies.styled';
+import { BtnLabel, FormBtn } from './SearchMovies.styled';
+import { Form, Field } from './SearchMovies.styled';
 import { BiSearch } from 'react-icons/bi';
-
-let initialValues = { value: '' };
+import { useSearchParams } from 'react-router-dom';
 
 export const SearchMovies = ({ onSubmit }) => {
-  const handleSubmit = values => {
-    initialValues = values;
-    return onSubmit(values);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const name = searchParams.get('value');
+  let initialValues = { value: '' };
+
+  console.log(name);
+  const handleSubmit = ({ value }, action) => {
+    if (value === '' || null) return;
+    if (name === '' || null) return;
+
+    const nextParams = name === '' ? {} : { value };
+    setSearchParams(nextParams);
+    action.resetForm();
+    return onSubmit({ value });
   };
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>

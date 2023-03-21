@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { MovieItem } from 'components/MovieItem/MovieItem';
 import { SearchMovies } from 'components/SearchMovies/SearchMovies';
 import { useEffect, useState } from 'react';
@@ -7,6 +8,7 @@ const Movies = () => {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
   const [notEmpty, setNotEmpty] = useState(false);
+  const [reqId, setReqId] = useState(null);
   useEffect(() => {
     const getMovies = async query => {
       if (!query) return;
@@ -21,12 +23,13 @@ const Movies = () => {
       }
     };
     getMovies(search);
-  }, [search]);
+  }, [search, reqId]);
 
   const handleSubmit = ({ value }) => {
     setSearch(value);
     setResults([]);
     setNotEmpty(false);
+    setReqId(nanoid());
   };
 
   return (
