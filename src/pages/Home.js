@@ -1,6 +1,6 @@
 import * as api from '../components/services/api';
 import { useEffect, useState } from 'react';
-import { MovieItem } from 'components/MovieItem/MovieItem';
+import { MovieItem } from 'components/MoviesList/MoviesList';
 
 const Home = () => {
   const [results, setResults] = useState([]);

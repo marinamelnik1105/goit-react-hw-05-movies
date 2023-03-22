@@ -9,7 +9,6 @@ export const SearchMovies = ({ onSubmit }) => {
   const name = searchParams.get('value');
   let initialValues = { value: '' };
 
-  console.log(name);
   const handleSubmit = ({ value }, action) => {
     if (value === '' || null) return;
     if (name === '' || null) return;

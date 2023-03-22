@@ -1,14 +1,16 @@
 import { nanoid } from 'nanoid';
-import { MovieItem } from 'components/MovieItem/MovieItem';
+import { MovieItem } from 'components/MoviesList/MoviesList';
 import { SearchMovies } from 'components/SearchMovies/SearchMovies';
 import { useEffect, useState } from 'react';
 import * as api from '../components/services/api';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
-  const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
   const [notEmpty, setNotEmpty] = useState(false);
   const [reqId, setReqId] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get('value') ?? '';
 
   useEffect(() => {
     const getMovies = async query => {
@@ -27,7 +29,7 @@ const Movies = () => {
   }, [search, reqId]);
 
   const handleSubmit = ({ value }) => {
-    setSearch(value);
+    setSearchParams({ search: value });
     setResults([]);
     setNotEmpty(false);
     setReqId(nanoid());

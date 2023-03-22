@@ -1,6 +1,6 @@
-import { LinkStyled } from 'components/MovieItem/MovieItem.styled';
+import { LinkStyled } from 'components/MoviesList/MoviesList.styled';
 import { useLocation } from 'react-router-dom';
-import { Img, Item, List } from './MovieItem.styled';
+import { Img, Item, List } from './MoviesList.styled';
 
 const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
 
