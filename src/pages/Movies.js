@@ -29,7 +29,7 @@ const Movies = () => {
   }, [search, reqId]);
 
   const handleSubmit = ({ value }) => {
-    setSearchParams({ search: value });
+    setSearchParams({ value: value });
     setResults([]);
     setNotEmpty(false);
     setReqId(nanoid());
