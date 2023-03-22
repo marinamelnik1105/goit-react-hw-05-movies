@@ -9,6 +9,7 @@ const Movies = () => {
   const [results, setResults] = useState([]);
   const [notEmpty, setNotEmpty] = useState(false);
   const [reqId, setReqId] = useState(null);
+
   useEffect(() => {
     const getMovies = async query => {
       if (!query) return;

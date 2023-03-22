@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCredits } from '../services/api';
+import { CastList, Img } from './Cast.styled';
 
 const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
 
@@ -23,12 +24,12 @@ const Cast = () => {
   const { cast } = movieCast;
   return (
     <div>
-      <ul>
+      <CastList>
         {notEmpty &&
           cast.map(({ id, name, profile_path }) => {
             return (
               <li key={id}>
-                <img
+                <Img
                   src={`${BASE_URL_IMG}${profile_path}`}
                   alt="actor portrait"
                 />
@@ -36,7 +37,7 @@ const Cast = () => {
               </li>
             );
           })}
-      </ul>
+      </CastList>
     </div>
   );
 };

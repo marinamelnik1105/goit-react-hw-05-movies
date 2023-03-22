@@ -1,6 +1,18 @@
+import { FallingLines } from 'react-loader-spinner';
 import { Suspense, useEffect, useRef, useState } from 'react';
-import { Outlet, useParams, Link, useLocation } from 'react-router-dom';
+import { Outlet, useParams, useLocation } from 'react-router-dom';
 import { getOneMovie } from '../components/services/api';
+import {
+  BackLink,
+  Container,
+  Genres,
+  Img,
+  LinkDetails,
+  List,
+  MovieInfo,
+} from './MovieDetails.styled';
+
+const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -20,23 +32,57 @@ const MovieDetails = () => {
     oneMovie(movieId);
   }, [movieId]);
   console.log(location);
-  const { original_title, name } = movieDetals;
+  const { title, name, poster_path, genres, overview, vote_average } =
+    movieDetals;
   return (
-    <div>
-      <Link to={backLinkLocationRef.current}>Back</Link>
-      <p>{original_title || name}</p>
-      <ul>
+    <Container>
+      <BackLink to={backLinkLocationRef.current}>Back</BackLink>
+      <MovieInfo>
+        <Img src={`${BASE_URL_IMG}${poster_path}`} alt="poster movie" />
+        <div>
+          <h2>{title || name}</h2>
+          <p>Rating:{vote_average} </p>
+          <Genres>
+            <p>Genres:</p>
+            <List>
+              {genres &&
+                genres.map(({ id, name }, index) => (
+                  <li key={id}>
+                    {`${name}${index !== genres.length - 1 ? ', ' : ''}`}
+                  </li>
+                ))}
+            </List>
+          </Genres>
+          <p>
+            <span>Overview: </span>
+            {overview}
+          </p>
+        </div>
+      </MovieInfo>
+
+      <List>
         <li>
-          <Link to="cast">Cast</Link>
+          <LinkDetails to="cast">Cast </LinkDetails>
         </li>
         <li>
-          <Link to="reviews">Reviews</Link>
+          <LinkDetails to="reviews">Reviews </LinkDetails>
         </li>
-      </ul>
-      <Suspense fallback={<div>Loading...</div>}>
+      </List>
+      <Suspense
+        fallback={
+          <div>
+            <FallingLines
+              color="#7979ff"
+              width="100"
+              visible={true}
+              ariaLabel="falling-lines-loading"
+            />
+          </div>
+        }
+      >
         <Outlet />
       </Suspense>
-    </div>
+    </Container>
   );
 };
 
